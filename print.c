@@ -19,6 +19,7 @@ int _printf(const char *format, ...)
 		if (format[obi] != '%')
 		{
 			char character = format[obi];
+
 			write(1, &character, 1);
 			lied++;
 		}
@@ -36,6 +37,7 @@ int _printf(const char *format, ...)
 		else if (format[obi + 1] == '%')
 		{
 			char percent = '%';
+
 			write(1, &percent, 1);
 			obi++;
 		}
