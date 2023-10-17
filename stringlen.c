@@ -11,12 +11,9 @@ int _strlin(char *sen)
 {
 	int len = 0;
 
-	if (sen)
+	if (sen[len] != '\0')
 	{
-		for (len = 0; sen[len] != '\0'; len++)
-		{
-			_putchar(sen[len]);
-		}
+		len++;
 	}
 	return (len);
 }

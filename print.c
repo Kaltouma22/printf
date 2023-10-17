@@ -10,11 +10,11 @@ int _printf(const char *format, ...)
 {
 
 	int obi, bu;
-	va_list pami;
 	int lied = 0;
 	char ch;
 
-	va_start(pami, format);
+	va_list pami;
+	va_start(pami, format); /* Initialize the va_list */
 
 	for (obi = 0; format[obi] != '\0'; obi++)
 	{
