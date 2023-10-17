@@ -11,9 +11,14 @@ int _printf(const char *format, ...)
 {
 	int i;
 	va_list args;
-	int lied = 0;
+	int char_count = 0;
 
 	va_start(args, format); /* Initialize the va_list */
+
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	if (format[0] == '%' && format[1] == ' ' && !format[2])
+		return (-1);
 
 	for (i = 0; format[i] != '\0'; i++)
 	{
@@ -22,7 +27,7 @@ int _printf(const char *format, ...)
 			char character = format[i];
 
 			write(1, &character, 1);
-			lied++;
+			char_count++;
 		}
 		else
 		{
@@ -32,23 +37,25 @@ int _printf(const char *format, ...)
 				char character = va_arg(args, int);
 
 				write(1, &character, 1);
-				lied++;
+				char_count++;
 			}
 			else if (format[i] == 's')
 			{
 				char *str = va_arg(args, char *);
 
-				lied += write(1, str, strlen(str));
+				char_count += write(1, str, strlen(str));
+
 			}
 			else if (format[i] == '%')
 			{
 				char percent = '%';
 
 				write(1, &percent, 1);
-				lied++;
+				char_count++;
 			}
 		}
 	}
 	va_end(args);
-	return (lied);
+
+	return (char_count);
 }
