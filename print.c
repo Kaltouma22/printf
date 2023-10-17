@@ -11,7 +11,6 @@ int _printf(const char *format, ...)
 	int obi, bu;
 	va_list pami;
 	int lied = 0;
-	char ch;
 
 	va_start(pami, format); /* Initialize the va_list */
 
@@ -19,13 +18,13 @@ int _printf(const char *format, ...)
 	{
 		if (format[obi] != '%')
 		{
-			_putchar(format[obi]);
+			char character = format[obi];
+			write(1, &character, 1);
 			lied++;
 		}
 		else if (format[obi + 1] == 'c')
 		{
-			ch = va_arg(pami, int);
-			_putchar(ch);
+			write(1, &format[obi + 2], 1);
 			obi++;
 		}
 		else if (format[obi + 1] == 's')
@@ -36,7 +35,9 @@ int _printf(const char *format, ...)
 		}
 		else if (format[obi + 1] == '%')
 		{
-			_putchar('%');
+			char percent = '%';
+			write(1, &percent, 1);
+			obi++;
 		}
 		lied += 1;
 	}
