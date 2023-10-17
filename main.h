@@ -3,7 +3,6 @@
 
 #define DEFAULT_NULL_STRING "(null)"
 #define OUTPUT_BUF_SIZE 1024
-#define BUF_FLUSH -1
 #define LOWERCASE_ALPHABET 1
 #define TO_UINT 2
 
