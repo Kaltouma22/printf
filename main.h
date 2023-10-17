@@ -8,5 +8,6 @@
 int _printf(const char *format, ...);
 int _putchar(char c);
 int _strlin(char *sen);
+int custom_putchar(char c);
 
 #endif

@@ -19,13 +19,13 @@ int _printf(const char *format, ...)
 	{
 		if (format[obi] != '%')
 		{
-			custom_putchar(format[obi]);
+			_putchar(format[obi]);
 			lied++;
 		}
 		else if (format[obi + 1] == 'c')
 		{
 			ch = va_arg(pami, int);
-			custom_putchar(ch);
+			_putchar(ch);
 			obi++;
 		}
 		else if (format[obi + 1] == 's')
@@ -36,7 +36,7 @@ int _printf(const char *format, ...)
 		}
 		else if (format[obi + 1] == '%')
 		{
-			custom_putchar('%');
+			_putchar('%');
 		}
 		lied += 1;
 	}
