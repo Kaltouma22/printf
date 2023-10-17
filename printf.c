@@ -10,52 +10,39 @@
 int _printf(const char *format, ...)
 {
 	int i;
-	va_list args;
 	int char_count = 0;
 
-	va_start(args, format); /* Initialize the va_list */
+	va_list args;
+	va_start(args, format);
 
-	if (!format || (format[0] == '%' && !format[1]))
-		return (-1);
-	if (format[0] == '%' && format[1] == ' ' && !format[2])
+	if (!format)
 		return (-1);
 
-	for (i = 0; format[i] != '\0'; i++)
+	for (i = 0; format[i]; i++)
 	{
 		if (format[i] != '%')
 		{
 			char character = format[i];
 
-			write(1, &character, 1);
-			char_count++;
+			char_count += write(1, &character, 1);
 		}
 		else
 		{
 			i++;
-			if (format[i] == 'c')
+			if (format[i] == 'c' || format[i] == '%')
 			{
 				char character = va_arg(args, int);
 
-				write(1, &character, 1);
-				char_count++;
+				char_count += write(1, &character, 1);
 			}
 			else if (format[i] == 's')
 			{
 				char *str = va_arg(args, char *);
 
 				char_count += write(1, str, strlen(str));
-
-			}
-			else if (format[i] == '%')
-			{
-				char percent = '%';
-
-				write(1, &percent, 1);
-				char_count++;
 			}
 		}
 	}
 	va_end(args);
-
 	return (char_count);
-}
+}	
