@@ -8,25 +8,24 @@
  */
 int _printf(const char *format, ...)
 {
-
 	int obi, bu;
+	va_list pami;
 	int lied = 0;
 	char ch;
 
-	va_list pami;
 	va_start(pami, format); /* Initialize the va_list */
 
 	for (obi = 0; format[obi] != '\0'; obi++)
 	{
 		if (format[obi] != '%')
 		{
-			_putchar(format[obi]);
+			custom_putchar(format[obi]);
 			lied++;
 		}
 		else if (format[obi + 1] == 'c')
 		{
 			ch = va_arg(pami, int);
-			_putchar(ch);
+			custom_putchar(ch);
 			obi++;
 		}
 		else if (format[obi + 1] == 's')
@@ -37,10 +36,10 @@ int _printf(const char *format, ...)
 		}
 		else if (format[obi + 1] == '%')
 		{
-			_putchar('%');
+			custom_putchar('%');
 		}
 		lied += 1;
 	}
-		va_end(pami);
-		return (lied);
+	va_end(pami);
+	return (lied);
 }
