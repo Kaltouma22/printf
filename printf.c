@@ -17,38 +17,38 @@ int _printf(const char *format, ...)
 
 	for (i = 0; format[i] != '\0'; i++)
 	{
-		char character = format[i];
-		char percent = '%';
-		char *str = NULL;
-
-		if (character != '%')
+		if (format[i] != '%')
 		{
+			char character = format[i];
+
 			write(1, &character, 1);
 			lied++;
-		} else {
+		}
+		else
+		{
 			i++;
-			if (character == 'c')
+			if (format[i] == 'c')
 			{
-				character = va_arg(args, int);
+				char character = va_arg(args, int);
+
 				write(1, &character, 1);
 				lied++;
 			}
-			else if (character == 's')
+			else if (format[i] == 's')
 			{
-				int len = strlen(str);
+				char *str = va_arg(args, char *);
 
-				str = va_arg(args, char *);
-				write(1, str, len);
-				lied += len;
+				lied += write(1, str, strlen(str));
 			}
-			else if (character == '%')
+			else if (format[i] == '%')
 			{
+				char percent = '%';
+
 				write(1, &percent, 1);
 				lied++;
 			}
 		}
 	}
 	va_end(args);
-
 	return (lied);
 }
