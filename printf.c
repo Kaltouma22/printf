@@ -19,38 +19,33 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] != '%')
 		{
-			putchar(format[i]);
+			char character = format[i];
+
+			write(1, &character, 1);
 			lied++;
 		}
 		else
 		{
 			i++;
-			switch ((format[i]))
+			if (format[i] == 'c')
 			{
-				case 'c':{
-					char character = va_arg(args, int);
+				char character = va_arg(args, int);
 
-					_putchar(character);
-					lied++;
-					break;
-				}
-				case 's':{
-					char *str = va_arg(args, char *);
+				write(1, &character, 1);
+				lied++;
+			}
+			else if (format[i] == 's')
+			{
+				char *str = va_arg(args, char *);
 
-					lied += printf("%s", str);
-					break;
-				}
-				case '%':{
-					putchar('%');
-					lied++;
-					break;
-				}
-				default:
-					/*
-					 * Handle an unknown format
-					 * specifier here if needed
-					 */
-					break;
+				lied += write(1, str, strlen(str));
+			}
+			else if (format[i] == '%')
+			{
+				char percent = '%';
+
+				write(1, &percent, 1);
+				lied++;
 			}
 		}
 	}
